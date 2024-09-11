@@ -61,7 +61,7 @@ def drawUrethra(array_shape, indicies, radius_mm, inplane_image_spacing):
     for p in range(int(x_square_min) , int(x_square_max)):
         for q in range(int(y_square_min) , int(y_square_max)):
             if (p - indicies[0]) ** 2 + (q - indicies[1]) ** 2 <= radius ** 2:
-                new_array[p,q] = 1  # Incrementing because need to have possibility of overlapping circles
+                new_array[p,q] = 1
 
     return new_array
 
