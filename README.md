@@ -37,7 +37,7 @@ Additionally, the `scikit-image` package is necessary in addition to the install
 
 **Setup**:
 
-1. Follow the installation instructions on the nnUNet GitHub (https://github.com/MIC-DKFZ/nnUNet) and create the necessary folders (*nnUNet_raw*, *nnUNet_preprocessed*, *nnUNet_results*). Make sure these folders are added to your paths.
+1. Follow the installation instructions on the nnUNet GitHub page (https://github.com/MIC-DKFZ/nnUNet) and create the necessary folders (*nnUNet_raw*, *nnUNet_preprocessed*, *nnUNet_results*). Make sure these folders are added to your paths.
 2. To structure the ProstateZones data in the nnU-Net specific folders, run:
     
     ```python
@@ -75,11 +75,6 @@ The zip file can be extracted directly to your *nnUNet_results* folder and used 
     ```
     
     The postprocessed output will be saved as an numpy array. This can be easily converted back to an nrrd-file and visualized, for example, using Hero.
-    
-
-**Evaluation**:
-
-- To evaluate the performance of the model on the predicted data, a Hero workflow is available.
 
 
 ### 3D U-Net
@@ -99,7 +94,7 @@ preprocess_3DUNet.py -input_folder "PATH_to_input" -output_folder "PATH_to_desir
 
 Afterwards, the training is performed with Bayesian Optimization by following this …
 
-Evaluations can be per performed with the model weights file in the `model-weights` folder. This can easily be integrated in e.g. Hero where the pre- and postprocessing are already included in the … workflow.
+Evaluations can be per performed with the model weights available at ... as a .pb-file. This can easily be integrated in e.g. Hero where the pre- and postprocessing are already included in the … workflow.
 
 ## Usage
 
@@ -109,6 +104,30 @@ For the simplest usage of each model, the trained weights are available at:
 For the nnU-Net, the each fold of the model is exported as an onnx file or the full model can be accessed within the nnU-Net framework through the ProstateZones_export.zip-file.
 The 3D U-Net is available as a .pb file.
 
+### Evaluation
+
+To evaluate the performance of the models on the predicted data, Hero workflows are available.
+
+*OutputSegmentations.ice*: creates images in Hero for each model. What is needed is the original image, the nnU-Net prediction in a folder, and that the 3D U-Net model is loaded as a .pb file. These outputs can then be saved to a Hero database.
+
+*Evaluation.ice*: Takes an image and two segmentations (e.g. a manual delineation and a model prediction) as inputs and saves all metrics in .csv-files in the specified folder.
+
 ## Citation
 
-…
+#### nnU-Net
+
+[1] Isensee, F., et al. (2021). nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods 18(2): 203-211.
+
+#### 3D U-Net
+
+[2] Meyer, A., et al. (2019). Towards patient-individual PI-Rads v2 sector map: CNN for automatic segmentation of prostatic zones from T2-weighted MRI. 2019 IEEE 16th International Symposium on Biomedical Imaging (ISBI 2019), IEEE.
+
+#### PROSTATEx dataset
+
+[3] Geert Litjens, Oscar Debats, Jelle Barentsz, Nico Karssemeijer, and Henkjan Huisman. "ProstateX Challenge data", The Cancer Imaging Archive (2017). DOI: 10.7937/K9TCIA.2017.MURS5CL
+[4] Litjens G, Debats O, Barentsz J, Karssemeijer N, Huisman H. "Computer-aided detection of prostate cancer in MRI", IEEE Transactions on Medical Imaging 2014;33:1083-1092. DOI: 10.1109/TMI.2014.2303821
+[5] Clark K, Vendt B, Smith K, Freymann J, Kirby J, Koppel P, Moore S, Phillips S, Maffitt D, Pringle M, Tarbox L, Prior F. The Cancer Imaging Archive (TCIA): Maintaining and Operating a Public Information Repository, Journal of Digital Imaging, Volume 26, Number 6, December, 2013, pp 1045-1057. DOI: 10.1007/s10278-013-9622-7
+
+#### ProstateZones
+
+[6] ...
