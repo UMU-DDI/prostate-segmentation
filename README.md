@@ -92,14 +92,11 @@ From the folder structure created in the Data Setup stage, run the preprocessing
 preprocess_3DUNet.py -input_folder "PATH_to_input" -output_folder "PATH_to_desired_output_folder"
 ```
 
-Afterwards, the training is performed with Bayesian Optimization by following this …
-
-Evaluations can be per performed with the model weights available at ... as a .pb-file. This can easily be integrated in e.g. Hero where the pre- and postprocessing are already included in the … workflow.
+Afterwards, the training is performed with Bayesian Optimization from: https://github.com/UMU-DDI/drs-boost
 
 ## Usage
 
-For the simplest usage of each model, the trained weights are available at:
-…
+For the simplest usage of each model, the trained weights are available at: https://drive.google.com/drive/folders/1-CboNLS5H_oOwQ7KPLtlVcLTWxeCwbNR?usp=sharing
 
 For the nnU-Net, the each fold of the model is exported as an onnx file or the full model can be accessed within the nnU-Net framework through the ProstateZones_export.zip-file.
 The 3D U-Net is available as a .pb file.
