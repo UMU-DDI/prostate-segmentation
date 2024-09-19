@@ -12,7 +12,7 @@ The user has the options to include the ADC and HBV sequences in addition to the
 parser = argparse.ArgumentParser()
 parser.add_argument('--imgs', type=str, default=[], nargs='+', help='Additional image sequences you want to include. Options are: ADC and HBV.')
 #parser.add_argument('--imgs', type=str, default=['ADC', 'HBV'], help='Additional image sequences you want to include. Options are: ADC or ADC and HBV.')
-parser.add_argument('--identifier', type=str, default='nrrd', help='File-type identifier. Options are: nrrd, ...')
+parser.add_argument('--identifier', type=str, default='.nrrd', help='File-type identifier. Options are: nrrd, ...')
 parser.add_argument('--data_id', type=str, default="Dataset077_ProstateZones", help='Defining the ID of the dataset.')
 parser.add_argument('--input_folder', type=str, default="C:\\William\\Doktorand\\Data\\test_output", help='Path to the folder containing the images.')
 parser.add_argument('--output_folder', type=str, default="C:\\William\\TEST\\nnUNet_data\\nnUNet_raw", help='Path to the desired output folder.')
@@ -63,24 +63,24 @@ for data in ['Train', 'Validate']:
         imgs.update({'Seg': seg})
         imgs.update({'AxT2': t2w})
 
-        dst_t2w = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0000.' + args.identifier)
-        dst_label = os.path.join(output_folder, labels, 'PROSTATEx_' + numbers + '.' + args.identifier)
+        dst_t2w = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0000' + args.identifier)
+        dst_label = os.path.join(output_folder, labels, 'PROSTATEx_' + numbers + args.identifier)
 
         write_image(imgs['AxT2'], dst_t2w)
         write_image(imgs['Seg'], dst_label)
 
         if 'ADC' and 'HBV' in image_sequences:
             imgs.update({'ADC': resampleToReference(adc, imgs['AxT2'], interpolator=sitk.sitkLinear)})
-            dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001.' + args.identifier)
+            dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001' + args.identifier)
             imgs.update({'HBV': resampleToReference(hbv,  imgs['AxT2'], interpolator=sitk.sitkLinear)})
-            dst_hbv = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0002.' + args.identifier)
+            dst_hbv = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0002' + args.identifier)
 
             write_image(imgs['ADC'], dst_adc)
             write_image(imgs['HBV'], dst_hbv)
 
         elif 'ADC' in image_sequences:
             imgs.update({'ADC': resampleToReference(adc, imgs['AxT2'], interpolator=sitk.sitkLinear)})
-            dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001.' + args.identifier)
+            dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001' + args.identifier)
 
             write_image(imgs['ADC'], dst_adc)
 
@@ -159,20 +159,20 @@ for patient_folder in os.listdir(os.path.join(args.input_folder, 'Test')):
 
     imgs.update({'AxT2': t2w})
 
-    dst_t2w = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0000.' + args.identifier)
+    dst_t2w = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0000' + args.identifier)
     write_image(imgs['AxT2'], dst_t2w)
 
     if 'ADC' and 'HBV' in image_sequences:
         imgs.update({'ADC': resampleToReference(adc, imgs['AxT2'], interpolator=sitk.sitkLinear)})
-        dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001.' + args.identifier)
+        dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001' + args.identifier)
         imgs.update({'HBV': resampleToReference(hbv,  imgs['AxT2'], interpolator=sitk.sitkLinear)})
-        dst_hbv = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0002.' + args.identifier)
+        dst_hbv = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0002' + args.identifier)
 
         write_image(imgs['ADC'], dst_adc)
         write_image(imgs['HBV'], dst_hbv)
 
     elif 'ADC' in image_sequences:
         imgs.update({'ADC': resampleToReference(adc, imgs['AxT2'], interpolator=sitk.sitkLinear)})
-        dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001.' + args.identifier)
+        dst_adc = os.path.join(output_folder, images, 'PROSTATEx_' + numbers + '_0001' + args.identifier)
 
         write_image(imgs['ADC'], dst_adc)
